@@ -1,0 +1,19 @@
+on:
+  push:
+
+name: 'Shellcheck and shfmt'
+
+jobs:
+  shellcheck:
+    name: Shellcheck & shfmt
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install ShellCheck
+      run: sudo apt-get update && sudo apt-get install -y shellcheck 
+    - name: Install shfmt
+      run: sudo snap install shfmt
+    - name: shellcheck .sh files
+      run: shellcheck $(find . -iname '*.sh')
+    - name: Run shfmt.sh
+      run: shfmt -d .
