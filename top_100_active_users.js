@@ -41,7 +41,6 @@ async function make_request(sg_host, sg_token, query) {
 }
 async function get_users_event_count(sg_host, sg_token) {
     const events = await fetch_all_events(sg_host, sg_token);
-    console.log(events.data.users.nodes)
     const users = events.data.users.nodes;
     var result = [];
     users.map(u => result.push([u.username, u.eventLogs.totalCount]))
@@ -51,7 +50,6 @@ async function get_users_event_count(sg_host, sg_token) {
 async function fetch_all_events(sg_host, sg_token) {
     try {
         const r = await make_request(sg_host, sg_token, FETCH_ALL_EVENTS);
-        // console.log(r)
         return await r.json();
     } catch(error) {
         console.log(error)
