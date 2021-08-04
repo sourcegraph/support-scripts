@@ -6,7 +6,7 @@ remoteURL="https://github.com/sourcegraph/$repoName.git"
 dockerHubImagesFile="docker-hub-images.csv"
 # Redirect output to console and log file
 logFile="./$0.log"
-exec > >(tee -ia $logFile)
+exec > >(tee -ia "$logFile")
 exec 2>&1
 # Overload echo function to prepend a date time stamp
 function echo () {
