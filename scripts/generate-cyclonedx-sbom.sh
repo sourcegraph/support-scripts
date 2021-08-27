@@ -79,7 +79,7 @@ sort \
 	$dockerHubImagesFile
 
 # Check for syft, install if don't have it from https://github.com/anchore/syft
-if test ! $("which syft"); then
+if test ! "$(which syft)"; then
     echo "Installing syft..."
     curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 fi
