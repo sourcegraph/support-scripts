@@ -5,10 +5,10 @@
 # It is based on our k8s-update-images script
 
 # Define variables to use, update if needed
-releaseVersion="v3.28.0"
+releaseVersion="v3.37.0"
 repoName="deploy-sourcegraph"
 remoteURL="https://github.com/sourcegraph/$repoName.git"
-dockerHubImagesFile="docker-hub-images.txt"
+dockerHubImagesFile="sourcegraph-docker-images.txt"
 logFile="./$0.log"
 # Redirect output to console and log file
 exec &> >(tee -a "$logFile")
@@ -109,7 +109,7 @@ fi
 echo "Generating needed output files in cyclonedx format"
 awk \
 	-F'[:@]' \
-	'{print $1 ":" $2 "\@" $3 ":" $4 ; gsub("sourcegraph/", ""); system("syft packages " $1 ":" $2 "\@" $3 ":" $4 " \-o cyclonedx > sg-" $1 "\.xml")}' \
+	'{print $1 ":" $2 "\@" $3 ":" $4 ; system("syft " $1 ":" $2 "\@" $3 ":" $4 " \-o cyclonedx=sg-" $1 "\.xml")}' \
 	$dockerHubImagesFile #\
 #    | tee $dockerHubImagesFile
 #echo "Done. See ./$dockerHubImagesFile"
