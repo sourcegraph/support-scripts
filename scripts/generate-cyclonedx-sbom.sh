@@ -109,7 +109,7 @@ fi
 echo "Generating needed output files in cyclonedx format"
 awk \
 	-F'[:@]' \
-	'{print $1 ":" $2 "\@" $3 ":" $4 ; system("syft " $1 ":" $2 "\@" $3 ":" $4 " \-o cyclonedx=sg-" $1 "\.xml")}' \
+	'{print $1 ":" $2 "\@" $3 ":" $4 ; system("syft " $1 ":" $2 "\@" $3 ":" $4 " \-o cyclonedx=sbom-" $1 "\.xml")}' \
 	$dockerHubImagesFile #\
 #    | tee $dockerHubImagesFile
 #echo "Done. See ./$dockerHubImagesFile"
