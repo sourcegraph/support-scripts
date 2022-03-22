@@ -5,7 +5,7 @@
 # It is based on our k8s-update-images script
 
 # Define variables to use, update if needed
-releaseVersion="v3.37.0"
+releaseVersion="v3.38.0"
 repoName="deploy-sourcegraph"
 remoteURL="https://github.com/sourcegraph/$repoName.git"
 dockerHubImagesFile="sourcegraph-docker-images.txt"
@@ -56,6 +56,9 @@ grep \
 	--no-filename \
 	--exclude-dir overlays \
 	--exclude-dir configure \
+	--exclude-dir tests \
+	--exclude-dir docs \
+	--exclude-dir tools \
 	-e "image:" \
 	./$repoName/* \
 	>$dockerHubImagesFile
@@ -79,7 +82,7 @@ sort \
 	$dockerHubImagesFile
 
 # Check for syft, install if don't have it from https://github.com/anchore/syft
-if test ! "$(which syft)"; then
+if test ! "$(syft --version)"; then
     echo "Installing syft..."
     curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 fi
@@ -112,4 +115,4 @@ awk \
 	'{print $1 ":" $2 "\@" $3 ":" $4 ; system("syft " $1 ":" $2 "\@" $3 ":" $4 " \-o cyclonedx=sbom-" $1 "\.xml")}' \
 	$dockerHubImagesFile #\
 #    | tee $dockerHubImagesFile
-#echo "Done. See ./$dockerHubImagesFile"
+echo "Done. See ./sbom-sourcegraph for the newly generated SBOM for $releaseVersion or ./$dockerHubImagesFile for list of images pulled"
