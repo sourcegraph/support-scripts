@@ -83,8 +83,8 @@ sort \
 
 # Check for syft, install if don't have it from https://github.com/anchore/syft
 if test ! "$(syft --version)"; then
-    echo "Installing syft..."
-    curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+	echo "Installing syft..."
+	curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 fi
 
 # Awk, to generate the output needed for the output file, then generate the cyclonedx files
