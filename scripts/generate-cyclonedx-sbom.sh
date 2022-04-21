@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script allows you to pull a list of docker images for our K8s instance
 # and then generate SBOM in cyclonedx format locally
 # It is based on our k8s-update-images script
 
 # Define variables to use, update if needed
-releaseVersion="v3.38.0"
+releaseVersion="v3.39.0"
 repoName="deploy-sourcegraph"
 remoteURL="https://github.com/sourcegraph/$repoName.git"
 dockerHubImagesFile="sourcegraph-docker-images.txt"
